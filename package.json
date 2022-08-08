@@ -1,0 +1,26 @@
+{
+  "name": "portfolio-generator",
+  "version": "1.0.0",
+  "description": "generate portfolio",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScoBoFoSho/portfolio-generator.git"
+  },
+  "keywords": [
+    "generate",
+    "portfolio"
+  ],
+  "author": "Cisco Ferre",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ScoBoFoSho/portfolio-generator/issues"
+  },
+  "homepage": "https://github.com/ScoBoFoSho/portfolio-generator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  }
+}
