@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const generatePage = require("./src/page-template.js");
+const generatePage = require("./src/page-template");
 const fs = require("fs");
 
 const promptUser = () => {
@@ -36,7 +36,7 @@ const promptUser = () => {
     },
     {
       type: "input",
-      name: "bio",
+      name: "about",
       message: "Provide some information about yourself:",
       when: ({ confirmAbout }) => {
         if (confirmAbout) {
@@ -74,7 +74,7 @@ Add a New Project
     },
     {
       type: "input",
-      name: "about",
+      name: "description",
       message: "What is your project about?",
       validate: infoInput => {
         if (infoInput) {
@@ -128,15 +128,19 @@ Add a New Project
 promptUser()
   .then(promptProject)
   .then(portfolioData => {
+    const pageHTML = generatePage(portfolioData);
+
+    fs.writeFile('./index.html', pageHTML, err => {
+      if (err) throw new Error(err);
+    });
     console.log(portfolioData);
   });
 
 // const [name, github] = profileDataArgs;
 
-
-// const pageHtml = generatePage(name, github);
 // fs.writeFile("./index.html", generatePage(name, github), (err) => {
 //   if (err) throw err;
 
 //   console.log("Portfolio complete! Check out index.html to see the output!");
 // });
+
