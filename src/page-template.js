@@ -1,6 +1,6 @@
-const generateAbout = aboutText => {
+const generateAbout = (aboutText) => {
   if (!aboutText) {
-    return '';
+    return "";
   }
 
   return `
@@ -10,84 +10,130 @@ const generateAbout = aboutText => {
     </section>
   `;
 };
-const generateProjects = projectsArr => {
-  // get array for all feat projects
-  const featuredProjects = projectsArr.filter(project => {
-    if (project.feature) {
-      return true;
-    } else {
-      return false;
-    }
-  });
 
-  // get array of all non-feat projects
-  const nonFeaturedProjects = projectsArr.filter(project => {
-    if (!project.feature) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-
-  // html for featured projects
-  const featuredProjectHtmlArr = featuredProjects.map(({ name, description, languages, link }) => {
-    return `
-      <div class="col-12 mb-2 bg-dark text-light p-3 flex-column">
-        <h3 class="portfolio-item-title text-light">${name}</h3>
-        <h5 class="portfolio-languages">
-          Built With:
-          ${languages.join(', ')}
-        </h5>
-        <p>${description}</p>
-        <a href="${link}" class="btn mt-auto"><i class="fab fa-github mr-2"></i>View Project on GitHub</a>
-      </div>
-    `;
-  });
-
-  // html for non-featured projects
-const nonFeaturedProjectHtmlArr = nonFeaturedProjects.map(
-    ({ name, description, languages, link }) => {
-      return `
-        <div class="col-12 col-md-6 mb-2 bg-dark text-light p-3 flex-column">
-          <h3 class="portfolio-item-title text-light">${name}</h3>
-          <h5 class="portfolio-languages">
-            Built With:
-            ${languages.join(', ')}
-          </h5>
-          <p>${description}</p>
-          <a href="${link}" class="btn mt-auto"><i class="fab fa-github mr-2"></i>View Project on GitHub</a>
-        </div>
-      `;
-    }
-  );
-
-  // const projectHtmlArr = projectsArr.map(({ name, description, languages, link }) => {
-  //     return `
-  //         <div class="col-12 col-md-6 mb-2 bg-dark text-light p-3 flex-column">
-  //           <h3 class="portfolio-item-title text-light">${name}</h3>
-  //           <h5 class="portfolio-languages">
-  //             Built With:
-  //             ${languages.join(', ')}
-  //           </h5>
-  //           <p>${description}</p>
-  //           <a href="${link}" class="btn mt-auto"><i class="fab fa-github mr-2"></i>View Project on GitHub</a>
-  //         </div>
-  //       `;
-  //   });
-
+const generateProjects = (projectsArr) => {
   return `
     <section class="my-3" id="portfolio">
       <h2 class="text-dark bg-primary p-2 display-inline-block">Work</h2>
       <div class="flex-row justify-space-between">
-      ${featuredProjectHtmlArr.join('')}
-      ${nonFeaturedProjectHtmlArr.join('')}
+      ${projectsArr
+        .filter(({ feature }) => feature)
+        .map(({ name, description, languages, link }) => {
+          return `
+          <div class="col-12 mb-2 bg-dark text-light p-3">
+            <h3 class="portfolio-item-title text-light">${name}</h3>
+            <h5 class="portfolio-languages">
+              Built With:
+              ${languages.join(", ")}
+            </h5>
+            <p>${description}</p>
+            <a href="${link}" class="btn"><i class="fab fa-github mr-2"></i>View Project on GitHub</a>
+          </div>
+        `;
+        })
+        .join("")}
+
+      ${projectsArr
+        .filter(({ feature }) => !feature)
+        .map(({ name, description, languages, link }) => {
+          return `
+          <div class="col-12 col-md-6 mb-2 bg-dark text-light p-3 flex-column">
+            <h3 class="portfolio-item-title text-light">${name}</h3>
+            <h5 class="portfolio-languages">
+              Built With:
+              ${languages.join(", ")}
+            </h5>
+            <p>${description}</p>
+            <a href="${link}" class="btn mt-auto"><i class="fab fa-github mr-2"></i>View Project on GitHub</a>
+          </div>
+        `;
+        })
+        .join("")}
       </div>
     </section>
   `;
 };
 
+// THIS CONST BELOW IS UN-REFACTORED CODE OF THE CODE ABOVE!!!!!
+// const generateProjects = (projectsArr) => {
+//   // get array for all feat projects
+//   const featuredProjects = projectsArr.filter((project) => {
+//     if (project.feature) {
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   });
 
-module.exports = templateData => {
+//   // get array of all non-feat projects
+//   const nonFeaturedProjects = projectsArr.filter((project) => {
+//     if (!project.feature) {
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   });
+
+//   // html for featured projects
+//   const featuredProjectHtmlArr = featuredProjects.map(
+//     ({ name, description, languages, link }) => {
+//       return `
+//       <div class="col-12 mb-2 bg-dark text-light p-3 flex-column">
+//         <h3 class="portfolio-item-title text-light">${name}</h3>
+//         <h5 class="portfolio-languages">
+//           Built With:
+//           ${languages.join(", ")}
+//         </h5>
+//         <p>${description}</p>
+//         <a href="${link}" class="btn mt-auto"><i class="fab fa-github mr-2"></i>View Project on GitHub</a>
+//       </div>
+//     `;
+//     }
+//   );
+
+//   // html for non-featured projects
+//   const nonFeaturedProjectHtmlArr = nonFeaturedProjects.map(
+//     ({ name, description, languages, link }) => {
+//       return `
+//         <div class="col-12 col-md-6 mb-2 bg-dark text-light p-3 flex-column">
+//           <h3 class="portfolio-item-title text-light">${name}</h3>
+//           <h5 class="portfolio-languages">
+//             Built With:
+//             ${languages.join(", ")}
+//           </h5>
+//           <p>${description}</p>
+//           <a href="${link}" class="btn mt-auto"><i class="fab fa-github mr-2"></i>View Project on GitHub</a>
+//         </div>
+//       `;
+//     }
+//   );
+
+//   // const projectHtmlArr = projectsArr.map(({ name, description, languages, link }) => {
+//   //     return `
+//   //         <div class="col-12 col-md-6 mb-2 bg-dark text-light p-3 flex-column">
+//   //           <h3 class="portfolio-item-title text-light">${name}</h3>
+//   //           <h5 class="portfolio-languages">
+//   //             Built With:
+//   //             ${languages.join(', ')}
+//   //           </h5>
+//   //           <p>${description}</p>
+//   //           <a href="${link}" class="btn mt-auto"><i class="fab fa-github mr-2"></i>View Project on GitHub</a>
+//   //         </div>
+//   //       `;
+//   //   });
+
+//   return `
+//     <section class="my-3" id="portfolio">
+//       <h2 class="text-dark bg-primary p-2 display-inline-block">Work</h2>
+//       <div class="flex-row justify-space-between">
+//       ${featuredProjectHtmlArr.join("")}
+//       ${nonFeaturedProjectHtmlArr.join("")}
+//       </div>
+//     </section>
+//   `;
+// };
+
+module.exports = (templateData) => {
   // destructure page data by section
   const { projects, about, ...header } = templateData;
 
@@ -108,7 +154,9 @@ module.exports = templateData => {
   <body>
     <header>
       <div class="container flex-row justify-space-between align-center py-3">
-        <h1 class="page-title text-secondary bg-dark py-2 px-3">${header.name}</h1>
+        <h1 class="page-title text-secondary bg-dark py-2 px-3">${
+          header.name
+        }</h1>
         <nav class="flex-row">
           <a class="ml-2 my-1 px-2 py-1 bg-secondary text-dark" href="https://github.com/${
             header.github
@@ -121,7 +169,9 @@ module.exports = templateData => {
           ${generateProjects(projects)}
     </main>
     <footer class="container text-center py-3">
-      <h3 class="text-dark">&copy; ${new Date().getFullYear()} by ${header.name}</h3>
+      <h3 class="text-dark">&copy; ${new Date().getFullYear()} by ${
+    header.name
+  }</h3>
     </footer>
   </body>
   </html>
