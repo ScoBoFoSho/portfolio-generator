@@ -7,17 +7,44 @@ const promptUser = () => {
     {
       type: "input",
       name: "name",
-      message: "What is your name?",
+      message: "What is your name? (required)",
+      validate: nameInput => {
+        if (nameInput) {
+          return true;
+        } else {
+          console.log('Please enter your name!');
+        }
+      }
     },
     {
       type: "input",
       name: "github",
-      message: "Please enter your GitHub Username:",
+      message: "What is your GitHub Username:",
+      validate: GithubInput => {
+        if (GithubInput) {
+          return true;
+        } else {
+          console.log('Please enter your GitHub Username!');
+        }
+      }
+    },
+    {
+  type: 'confirm',
+  name: 'confirmAbout',
+  message: 'Would you like to enter some information about yourself for an "About" section?',
+  default: true
     },
     {
       type: "input",
-      name: "about",
+      name: "bio",
       message: "Provide some information about yourself:",
+      when: ({ confirmAbout }) => {
+        if (confirmAbout) {
+          return true;
+        } else {
+          return false;
+        }
+      }
     },
   ]);
 };
@@ -37,6 +64,25 @@ Add a New Project
       type: "input",
       name: "name",
       message: "What is the name of your project?",
+      validate: projectInput => {
+        if (projectInput) {
+          return true;
+        } else {
+          console.log('Please enter your project name!');
+        }
+      }
+    },
+    {
+      type: "input",
+      name: "about",
+      message: "What is your project about?",
+      validate: infoInput => {
+        if (infoInput) {
+          return true;
+        } else {
+          console.log('Please describe your project!');
+        }
+      }
     },
     {
       type: "checkbox",
@@ -48,7 +94,14 @@ Add a New Project
     {
       type: "input",
       name: "link",
-      message: "Please enter the GitHub link to your project/repo (required):",
+      message: "What is the GitHub link to your project? (required):",
+      validate: linkInput => {
+        if (linkInput) {
+          return true;
+        } else {
+          console.log('Please enter your GitHub link!');
+        }
+      }
     },
     {
       type: "confirm",
